@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { Provider } from "react-redux"
 import { ThemeProvider } from "styled-components"
 import { createAppStore } from "./store"
+import "./styles/index.less"
 
 const Home = React.lazy(() => import("./pages/Home"))
 
