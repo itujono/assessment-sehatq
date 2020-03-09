@@ -6,7 +6,7 @@ import { DUMMY_PRODUCTS } from "utils/dummy"
 import { RightOutlined } from "@ant-design/icons"
 
 export default function Search() {
-    const { goBack } = useHistory()
+    const { goBack, push } = useHistory()
     const [searchValue, setSearchValue] = useState("")
     const [products, setProducts] = useState(DUMMY_PRODUCTS)
 
@@ -18,6 +18,10 @@ export default function Search() {
         setSearchValue(e.target.value)
         const filtered = DUMMY_PRODUCTS.filter(item => item.name.toLowerCase().includes(e.target.value.toLowerCase()))
         setProducts(filtered)
+    }
+
+    const handleClickProduct = item => {
+        push({ pathname: `/product/${item.slug}`, product: item })
     }
 
     return (
@@ -41,7 +45,7 @@ export default function Search() {
                     itemLayout="horizontal"
                     dataSource={searchValue.length ? products : []}
                     renderItem={item => (
-                        <List.Item>
+                        <List.Item onClick={() => handleClickProduct(item)}>
                             <List.Item.Meta
                                 avatar={<Avatar src="https://source.unsplash.com/random/" alt={item.name} />}
                                 title={item.name}

@@ -7,6 +7,7 @@ import { createAppStore } from "./store"
 import "./styles/index.less"
 import Search from "./pages/Search"
 import Home from "./pages/Home"
+import ProductDetails from "./pages/ProductDetails"
 
 // const Home = React.lazy(() => import("./pages/Home"))
 
@@ -22,6 +23,7 @@ const App = () => {
                         {/* <Suspense fallback="Loading..."> */}
                         <Route exact path="/" component={Home} />
                         <Route exact path="/search" component={Search} />
+                        <Route exact path="/product/:slug" component={ProductDetails} />
                         <Route component={NotFound} />
                         {/* </Suspense> */}
                     </Switch>

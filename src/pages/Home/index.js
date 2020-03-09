@@ -7,6 +7,7 @@ import { fetchCategories, fetchPromoProducts } from "store/actions/productAction
 import { Row, Col, Icon, Input, Avatar, Typography, List } from "antd"
 import styled from "styled-components"
 import { baseStyles } from "styles"
+import { useHistory } from "react-router"
 
 const ScrollerRow = styled(Row)`
     margin-bottom: 2em;
@@ -46,6 +47,7 @@ const BottomBar = styled(Row)`
 
 export default function Home() {
     const dispatch = useDispatch()
+    const { push } = useHistory()
     const categories = useSelector(({ product }) => product.categories)
     const promoProducts = useSelector(({ product }) => product.promoProducts)
 
@@ -60,7 +62,11 @@ export default function Home() {
                 <Row gutter={16} className="mb2em">
                     <Col xs={4}>{/* <StarOutline /> */}</Col>
                     <Col xs={20}>
-                        <Input.Search placeholder="Search everything..." onSearch={value => console.log({ value })} />
+                        <Input.Search
+                            placeholder="Search everything..."
+                            onFocus={() => push("/search")}
+                            onSearch={value => console.log({ value })}
+                        />
                     </Col>
                 </Row>
 
