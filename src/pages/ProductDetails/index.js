@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Section, Heading, Button } from "components"
-import { PageHeader, Row, Col, Typography } from "antd"
+import { PageHeader, Row, Col, Typography, Popconfirm, message } from "antd"
 import { useLocation, useParams, useHistory } from "react-router"
 import { ShareAltOutlined } from "@ant-design/icons"
 import styled from "styled-components"
 import { DUMMY_PRODUCTS } from "utils/dummy"
+import { useDispatch } from "react-redux"
+import { buyProduct } from "../../store/actions/productActions"
 
 const BgImage = styled.div`
     height: 180px;
@@ -25,9 +27,17 @@ const StyledPageHeader = styled(PageHeader)`
 
 export default function ProductDetails() {
     const { product = {} } = useLocation()
-    const { goBack } = useHistory()
+    const { goBack, push } = useHistory()
     const { slug } = useParams()
+    const dispatch = useDispatch()
     const [productItem, setProductItem] = useState({})
+
+    const handleBuy = () => {
+        dispatch(buyProduct(productItem))
+        message.loading("Please wait...", 2).then(() => {
+            push({ pathname: "/history", isBuyingSuccess: true })
+        })
+    }
 
     useEffect(() => {
         if (slug) {
@@ -37,7 +47,7 @@ export default function ProductDetails() {
         }
 
         setProductItem(product)
-    }, [])
+    }, [dispatch])
 
     return (
         <>
@@ -60,7 +70,9 @@ export default function ProductDetails() {
                     <Col xs={12}></Col>
                     <Col xs={12} className="ta-right">
                         <Typography.Text className="mr2em">{productItem.price}</Typography.Text> &nbsp;
-                        <Button type="primary">Buy now</Button>
+                        <Popconfirm title="Are you sure want to buy this?" onConfirm={handleBuy}>
+                            <Button type="primary">Buy now</Button>
+                        </Popconfirm>
                     </Col>
                 </Row>
             </Section>

@@ -8,6 +8,7 @@ import "./styles/index.less"
 import Search from "./pages/Search"
 import Home from "./pages/Home"
 import ProductDetails from "./pages/ProductDetails"
+import History from "./pages/History"
 
 // const Home = React.lazy(() => import("./pages/Home"))
 
@@ -24,6 +25,7 @@ const App = () => {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/search" component={Search} />
                         <Route exact path="/product/:slug" component={ProductDetails} />
+                        <Route exact path="/history" component={History} />
                         <Route component={NotFound} />
                         {/* </Suspense> */}
                     </Switch>

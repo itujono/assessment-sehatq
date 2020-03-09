@@ -26,3 +26,8 @@ export const fetchPromoProducts = () => dispatch => {
             dispatch({ type: types.FETCH_PROMO_PRODUCTS_ERROR })
         })
 }
+
+export const buyProduct = item => ({
+    type: types.BUY_PRODUCT,
+    payload: item
+})
