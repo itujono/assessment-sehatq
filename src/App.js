@@ -1,11 +1,14 @@
 import React, { useState, Suspense } from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { NotFound } from "components"
 import { Provider } from "react-redux"
 import { ThemeProvider } from "styled-components"
 import { createAppStore } from "./store"
 import "./styles/index.less"
+import Search from "./pages/Search"
+import Home from "./pages/Home"
 
-const Home = React.lazy(() => import("./pages/Home"))
+// const Home = React.lazy(() => import("./pages/Home"))
 
 const App = () => {
     const [mode, setMode] = useState("light")
@@ -16,9 +19,11 @@ const App = () => {
             <BrowserRouter>
                 <ThemeProvider theme={{ mode, toggle: handleToggle }}>
                     <Switch>
-                        <Suspense fallback="Loading...">
-                            <Route exact path="/" component={Home} />
-                        </Suspense>
+                        {/* <Suspense fallback="Loading..."> */}
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/search" component={Search} />
+                        <Route component={NotFound} />
+                        {/* </Suspense> */}
                     </Switch>
                 </ThemeProvider>
             </BrowserRouter>

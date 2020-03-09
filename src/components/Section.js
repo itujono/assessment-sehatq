@@ -4,14 +4,14 @@ import { media } from "utils"
 
 const StyledSection = styled.section`
     && {
-        padding: ${({ ph }) => (ph ? `2em ${ph}` : `2em 4em`)};
+        padding: ${({ pl, pr, pt, pb }) => `${pt || "2em"} ${pr || "4em"} ${pb || "2em"} ${pl || "4em"}`};
         text-align: ${({ textAlign }) => textAlign || "left"};
         margin-bottom: ${({ mb }) => mb || "1em"};
     }
 
     ${media.mobile`
         && {
-			padding: ${({ ph }) => (ph ? `2em ${ph}` : `2em 1.5em`)};
+			padding: ${({ pl, pr, pt, pb }) => `${pt || "2em"} ${pr || "1.5em"} ${pb || "2em"} ${pl || "1.5em"}`};
 		}
     `}
 `
