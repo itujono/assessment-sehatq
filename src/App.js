@@ -1,35 +1,43 @@
-import React, { useState, Suspense } from "react"
+import React, { useEffect, useState } from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import { NotFound } from "components"
+import { NotFound, Heading } from "components"
 import { Provider } from "react-redux"
-import { ThemeProvider } from "styled-components"
 import { createAppStore } from "./store"
 import "./styles/index.less"
 import Search from "./pages/Search"
 import Home from "./pages/Home"
 import ProductDetails from "./pages/ProductDetails"
 import History from "./pages/History"
-
-// const Home = React.lazy(() => import("./pages/Home"))
+import { Modal } from "antd"
 
 const App = () => {
-    const [mode, setMode] = useState("light")
-    const handleToggle = () => setMode(mode === "light" ? "dark" : "light")
+    const [isMobile, setIsMobile] = useState(true)
+    // const [mode, setMode] = useState("light")
+    // const handleToggle = () => setMode(mode === "light" ? "dark" : "light")
+
+    useEffect(() => {
+        if (window.innerWidth > 415) {
+            setIsMobile(false)
+        }
+    }, [window.innerWidth])
 
     return (
         <Provider store={createAppStore()}>
             <BrowserRouter>
-                <ThemeProvider theme={{ mode, toggle: handleToggle }}>
-                    <Switch>
-                        {/* <Suspense fallback="Loading..."> */}
-                        <Route exact path="/" component={Home} />
-                        <Route exact path="/search" component={Search} />
-                        <Route exact path="/product/:slug" component={ProductDetails} />
-                        <Route exact path="/history" component={History} />
-                        <Route component={NotFound} />
-                        {/* </Suspense> */}
-                    </Switch>
-                </ThemeProvider>
+                <Modal visible={!isMobile} footer={false} closable={false} centered>
+                    <Heading
+                        level={4}
+                        content="You are currently not in mobile"
+                        subheader="Please switch to mobile device in order to continue using this app"
+                    />
+                </Modal>
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/search" component={Search} />
+                    <Route exact path="/product/:slug" component={ProductDetails} />
+                    <Route exact path="/history" component={History} />
+                    <Route component={NotFound} />
+                </Switch>
             </BrowserRouter>
         </Provider>
     )

@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react"
 import { Section, Heading, Button } from "components"
-import { PageHeader, Row, Col, Typography, Popconfirm, message } from "antd"
+import { PageHeader, Row, Col, Typography, Popconfirm, message, Popover } from "antd"
 import { useLocation, useParams, useHistory } from "react-router"
-import { ShareAltOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons"
+import {
+    ShareAltOutlined,
+    HeartOutlined,
+    HeartFilled,
+    FacebookFilled,
+    TwitterSquareFilled,
+    InstagramFilled
+} from "@ant-design/icons"
 import styled from "styled-components"
 import { DUMMY_PRODUCTS } from "utils/dummy"
 import { useDispatch } from "react-redux"
@@ -34,6 +41,20 @@ export default function ProductDetails() {
     const [productItem, setProductItem] = useState({})
     const [isFavorited, setIsFavorited] = useState(false)
 
+    const popoverContent = (
+        <Row gutter={16}>
+            <Col xs={6}>
+                <FacebookFilled style={{ fontSize: 20 }} />
+            </Col>
+            <Col xs={6}>
+                <TwitterSquareFilled style={{ fontSize: 20 }} />
+            </Col>
+            <Col xs={6}>
+                <InstagramFilled style={{ fontSize: 20 }} />
+            </Col>
+        </Row>
+    )
+
     const handleBuy = () => {
         dispatch(buyProduct(productItem))
         message.loading("Please wait...", 2).then(() => {
@@ -58,7 +79,11 @@ export default function ProductDetails() {
                 onBack={() => goBack()}
                 title={productItem.name}
                 subTitle={productItem.price}
-                extra={[<Button type="primary" shape="circle" icon={<ShareAltOutlined />} />]}
+                extra={[
+                    <Popover content={popoverContent} title="Share this" placement="bottomRight">
+                        <Button type="primary" shape="circle" icon={<ShareAltOutlined />} />
+                    </Popover>
+                ]}
             />
             <Section>
                 <BgImage>

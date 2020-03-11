@@ -5,19 +5,22 @@ import { Section, Button } from "components"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchCategories, fetchPromoProducts } from "store/actions/productActions"
 import { Row, Col, Icon, Input, Avatar, Typography, List } from "antd"
+import { StarOutlined } from "@ant-design/icons"
 import styled from "styled-components"
 import { baseStyles } from "styles"
 import { useHistory } from "react-router"
 
 const ScrollerRow = styled(Row)`
-    margin-bottom: 2em;
-    padding-top: 1em;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    width: auto;
-    -webkit-overflow-scrolling: touch;
-    &::-webkit-scrollbar {
-        display: none;
+    && {
+        margin-bottom: 2em;
+        padding-top: 1em;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        width: auto;
+        -webkit-overflow-scrolling: touch;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 `
 
@@ -60,7 +63,9 @@ export default function Home() {
         <>
             <Section>
                 <Row gutter={16} className="mb2em">
-                    <Col xs={4}>{/* <StarOutline /> */}</Col>
+                    <Col xs={4}>
+                        <StarOutlined />
+                    </Col>
                     <Col xs={20}>
                         <Input.Search
                             placeholder="Search everything..."
